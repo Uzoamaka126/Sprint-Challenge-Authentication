@@ -19,12 +19,12 @@ describe('user model', () => {
 
             expect(usersCount).toHaveLength(1)
         });
-
-
+        
+        it('inserts users into the db', async ()=> {
+            let user = await Users.add({ username: 'peter', password: '1234'})
+             expect(user.username).toBe('peter')
+        })
     });
 
-   it('inserts users into the db', async ()=> {
-       let user = await Users.add({ username: 'peter', password: '1234'})
-        expect(user.username).toBe('peter')
-   })
+   
 });
