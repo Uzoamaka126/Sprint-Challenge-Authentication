@@ -10,7 +10,7 @@ module.exports = {
 
 function get() {
     return db('users')
-        .select('id', 'username', 'password')
+        .select('id', 'username')
 }
 
 function getBy(filter) {
@@ -32,7 +32,7 @@ async function remove(id) {
 
 function getById(id) {
     return db('users')
-        .select('id', 'username', 'password')
+        .select('id', 'username')
         .where({ id })
         .first()
 }

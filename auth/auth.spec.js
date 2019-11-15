@@ -2,7 +2,7 @@ const request = require('supertest');
 const express = require('express');
 
 const app = express();
-
+const server = require('../api/server')
 const db = require('../database/dbConfig');
 const Users = require('./user-model');
 
@@ -31,20 +31,21 @@ describe('user model', () => {
         })
     });
 
-    describe('POST /auth', function() {
-        it('responds with json', function(done) {
-          request(app)
-            .post('/auth')
-            .send({name: 'john'})
+    describe('server.js', () => {
+        it('can signup', async () => {
+            return request(server)
+            .post('/api/auth/register')
             .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            .expect(200)
-            .end(function(err, res) {
-              if (err) return done(err);
-              done();
-            });
+            .send({ username: 'ada', password: '1234' })
+            .expect(201);
         });
-      });
 
-   
+        it('unsuccessfully login', async () => {
+            return request(server)
+            .post('/api/auth/login')
+            .set('Accept', 'application/json')
+            .send({ username: 'ada2', password: '1234' })
+            .expect(401);
+        });
+    }); 
 });
