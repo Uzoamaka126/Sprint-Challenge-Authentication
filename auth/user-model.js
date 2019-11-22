@@ -28,7 +28,7 @@ async function remove(id) {
     
     return getById(id)
       .delete()
-  }
+}
 
 function getById(id) {
     return db('users')

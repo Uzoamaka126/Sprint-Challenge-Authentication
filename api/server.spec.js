@@ -3,10 +3,9 @@ const server = require('./server');
 const db = require('../database/dbConfig');
 let token;
 
-
 beforeAll(done => {
     return request(server)
-      .post('/api/auth/register')
+      .post('/api/auth/login')
       .set('Accept', 'application/json')
       .send({
         username: 'username',
@@ -18,6 +17,7 @@ beforeAll(done => {
       });
   });
 
+  console.log(token)
 
 describe('server.js', () => {
     describe('index route', () => {
@@ -42,18 +42,24 @@ describe('server.js', () => {
     })
 
   describe('jokes route', () => {
-        // it('returns error without token', async () => {
-        //   return request(server)
-        //     .get('/api/jokes')
-        //     .expect(401);
-        // });
+    // it('is in a test env', () => {
+    //   expect(process.env.NODE_ENV).toBe('testing')
+    // });
 
-        it('successful with token', async () => {
-          return request(server)
-            .get('/api/jokes')
-            // .set('Accept', 'application/json')
-            .set('Authorization', token)
-            .expect(200);
-        });
-      });
+    it('returns error without token', async () => {
+      return request(server)
+        .get('/api/jokes')
+        .expect(401);
+    });
+
+    it('successful with token', async () => {
+      console.log(token)
+
+      return request(server)
+        .get('/api/jokes')
+        // .set('Accept', 'application/json')
+        .set('Authorization', token)
+        .expect(200);
+    });
+  });
 })
