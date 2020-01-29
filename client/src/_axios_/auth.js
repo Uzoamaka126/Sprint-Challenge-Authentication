@@ -3,12 +3,12 @@ import axios from 'axios';
 
 export const register = (user, history) => {
     axios
-        .post('http://localhost:3300/api/auth/register', user)
+        .post('https://dad-jokes-app.herokuapp.com/api/auth/register', user)
         .then(res => {
             // setAu
-            console.log(res);
+            // console.log(res);
             localStorage.setItem('token', res.data.token)
-            localStorage.setItem('userID', res.data.id);
+            localStorage.setItem('id', res.data.id);
             history.push('/jokes');
         })
         .catch(error => {
@@ -17,13 +17,14 @@ export const register = (user, history) => {
         });
 }
 
-export const login = user => {
+export const login = (user, history) => {
     axios
-        .post('http://localhost:3300/api/auth/login', user)
+        .post('https://dad-jokes-app.herokuapp.com/api/auth/login', user)
         .then(res => {
-            console.log(res);
+            // console.log(res);
             localStorage.setItem('token', res.data.token)
-            localStorage.setItem('userID', res.data.id);
+            localStorage.setItem('id', res.data.id);
+            history.push('/jokes');
         })
         .catch(error => {
             console.log(error);

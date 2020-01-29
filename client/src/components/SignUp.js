@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { register, login } from '../_axios_/auth';
-
+import React, { useState } from 'react';
+import { register } from '../_axios_/auth';
+import axios from 'axios';
 export default function SignUp (props) {
     console.log(props)
     const { history } = props;
@@ -16,8 +16,21 @@ export default function SignUp (props) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        register(user, history);
+        // register(user, history);
         // props.history.push('/jokes');
+        axios
+        .post('https://dad-jokes-app.herokuapp.com/api/auth/register', user)
+        .then(res => {
+            // setAu
+            console.log(res);
+            localStorage.setItem('token', res.data.token)
+            localStorage.setItem('id', res.data.id);
+            history.push('/jokes');
+        })
+        .catch(error => {
+            console.log(error);
+            alert('Invalid credentials, please check again or sign up for an account');           
+        });
     }
 
     return (
