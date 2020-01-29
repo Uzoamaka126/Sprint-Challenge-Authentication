@@ -7,10 +7,10 @@ export default function Navigation () {
         <nav>
             <div className="container">
                 <div className="nav-wrapper">
-                    <div className="leftNav">
-                        <Link to="/">DAD JOKES?</Link>
+                    <div className="left-nav">
+                        <Link to="/" className="glow">DAD JOKES?</Link>
                     </div>
-                    <div className="rightNav">
+                    <div className="right-nav">
                         <Link to="/login">Login</Link>
                         <Link to="/signup">Signup</Link>
                         <Link to="/jokes">Jokes</Link>

@@ -1,15 +1,15 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { login } from '../_axios_/auth';
 
 export default function Login (props) {
-    
-    const usernameRef = useRef();
-    const passwordRef = useRef();
+    console.log(props)
+    const [user, setUser] = useState({
+        username: "",
+        password: ""
+    });
 
-    const user ={
-        username: usernameRef.current.value,
-        password: passwordRef.current.value,
-
+    function handleChange(event) {
+        setUser({ ...user, [event.target.name]: event.target.value })
     }
 
     function handleSubmit(event) {
@@ -24,11 +24,11 @@ export default function Login (props) {
                 <h6>Login to see jokes!</h6>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
-                    <input ref={usernameRef} name="username" className="form-control" id="username" />
+                    <input name="username" className="form-control" id="username" />
                 </div>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
-                    <input ref={passwordRef} name="password" className="form-control" id="password" />
+                    <input name="password" className="form-control" id="password" />
                 </div>
                 <button>Login</button>
             </form>

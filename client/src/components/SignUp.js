@@ -2,42 +2,39 @@ import React, { useState, useRef } from 'react';
 import { register, login } from '../_axios_/auth';
 
 export default function SignUp (props) {
-    // const [inputChange, setInputChange] = useState({
-    //     username: "",
-    //     password: ""
-    // });
+    console.log(props)
+    const { history } = props;
 
-    // function handleChange(event) {
-    //     setInputChange({ ...inputChange, [event.target.name]: event.target.value })
-    // }
-    const usernameRef = useRef();
-    const passwordRef = useRef();
+    const [user, setUser] = useState({
+        username: "",
+        password: ""
+    });
 
-    const user ={
-        username: usernameRef.current.value,
-        password: passwordRef.current.value,
-
+    function handleChange(event) {
+        setUser({ ...user, [event.target.name]: event.target.value })
     }
 
     function handleSubmit(event) {
         event.preventDefault();
-        register(user);
-        props.history.push('/jokes');
+        register(user, history);
+        // props.history.push('/jokes');
     }
 
     return (
         <div>
-            <form>
-                <h6>Sign up to see jokes!</h6>
+            <nav className="bg-blue">
+                <h4 className="glow">Sign up</h4>
+            </nav>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="username">Username</label>
-                    <input ref={usernameRef} name="username" className="form-control" id="username" />
+                    <input onChange={handleChange} name="username" className="form-control" id="username" />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input ref={passwordRef} name="password" className="form-control" id="password" />
+                    <label htmlFor="username">Password</label>
+                    <input onChange={handleChange} name="password" className="form-control" id="password" />
                 </div>
-                <button>Sign Up</button>
+                <button className="btn btn-primary">Sign Up</button>
             </form>
         </div>
     )
