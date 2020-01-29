@@ -8,14 +8,17 @@ module.exports = {
     getById
 }
 
+// Get single user
 function get() {
     return db('users')
         .select('id', 'username')
 }
 
+// Get all users
 function getBy(filter) {
     return db('users')
-        .where(filter);
+        .where(filter)
+        .first()
 }
 
 async function add(user) {

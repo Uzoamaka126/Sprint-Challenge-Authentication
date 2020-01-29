@@ -2,7 +2,11 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom'
 
 
-export default function Navigation () {
+export default function AuthNavigation () {
+    function logOut() {
+
+    }
+
     return (
         <nav>
             <div className="container">
@@ -11,9 +15,7 @@ export default function Navigation () {
                         <Link to="/">DAD JOKES?</Link>
                     </div>
                     <div className="rightNav">
-                        <Link to="/login">Login</Link>
-                        <Link to="/signup">Signup</Link>
-                        <Link to="/jokes">Jokes</Link>
+                        <Link onClick={logOut}>Logout</Link>
                     </div>
                 </div>
             </div>

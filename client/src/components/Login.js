@@ -1,63 +1,37 @@
-import React, { useState, useRef } from 'react';
-import axios from 'axios';
-import { withAuth } from '../_axios_/index';
+import React, { useRef } from 'react';
+import { login } from '../_axios_/auth';
 
-function Login(props) {
+export default function Login (props) {
+    
+    const usernameRef = useRef();
+    const passwordRef = useRef();
 
-    const initialLoginFormState = {
-     usernameRef: useRef(),
-     passwordRef: useRef()
+    const user ={
+        username: usernameRef.current.value,
+        password: passwordRef.current.value,
+
     }
 
-    const [credentials, setCredentials] = useState(initialLoginFormState);
-
-    const loginUser = (event) => {
+    function handleSubmit(event) {
         event.preventDefault();
-
-        axios.post('http://localhost:3300/api/auth/login', credentials)
-            .then(res => {
-                localStorage.setItem('token', res.data.payload)
-                props.history.push('/jokes');
-            })
-            .catch(error => {
-                console.log(error.response.data.message);
-            });
+        login(user);
+        props.history.push('/jokes');
     }
-
-    const handleChange = event => {
-      setCredentials({
-            ...credentials,
-        [event.target.name]: event.target.value
-        })
-    };
 
     return (
         <div>
-            <form onSubmit={loginUser}>
-            <div className="input-group">
-                    <label>Username</label>
-                    <input 
-                        type="text" 
-                        name="username"
-                        value={credentials.username}
-                        onChange={handleChange}
-                    />
+            <form>
+                <h6>Login to see jokes!</h6>
+                <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input ref={usernameRef} name="username" className="form-control" id="username" />
                 </div>
-                <div className="input-group">
-                    <label>Password</label>
-                    <input 
-                        type="text" 
-                        name="password"
-                        value={credentials.password}
-                        onChange={handleChange}
-                    />
+                <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input ref={passwordRef} name="password" className="form-control" id="password" />
                 </div>
-                <div className="login-btn-div">
-                    <button className="btn login-btn">Login</button>
-                </div>
+                <button>Login</button>
             </form>
         </div>
     )
 }
-
-export default Login;
